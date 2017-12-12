@@ -1,3 +1,5 @@
+require 'byebug'
+
 class Board
   attr_accessor :cups
 
@@ -24,11 +26,17 @@ class Board
     current_num_stones = cups[start_pos].size
     cups[start_pos] = []
     theoretical_index = start_pos + current_num_stones
-    ending_cup_idx = (theoretical_index) % 14
 
     if current_player_name == @name1
-      # ending_cup_idx += 1 if (start_pos..theoretical_index).include?(13)
-      array = (start_pos..theoretical_index).to_a
+      theoretical_index += 1 if (start_pos..theoretical_index).include?(13)
+    else
+      theoretical_index += 1 if (start_pos..theoretical_index).include?(6)
+    end
+
+      ending_cup_idx = (theoretical_index) % 14
+    if current_player_name == @name1
+
+      array = (start_pos+1..theoretical_index).to_a
       array.each do |idx|
         next if idx == 13
         idx = idx % 14
@@ -36,18 +44,30 @@ class Board
       end
     elsif current_player_name == @name2
 
+      array = (start_pos+1..theoretical_index).to_a
+      array.each do |idx|
+        next if idx == 6
+        idx = idx % 14
+        cups[idx] << :stone
+      end
     end
 
-
-    return :switch if cups[ending_cup_idx].empty?
-    #next_turn(start_pos, ending_cup_idx)
     render
+    next_turn(ending_cup_idx)
+
   end
 
   def next_turn(ending_cup_idx)
+    p cups[ending_cup_idx]
     # helper method to determine what #make_move returns
-    (start_pos+1..ending_cup_idx).each do |idx|
-
+    if ending_cup_idx == 6 || ending_cup_idx == 13
+      return :prompt
+    else
+      if cups[ending_cup_idx].empty?
+        return :switch
+      else
+        return ending_cup_idx
+      end
     end
   end
 
@@ -69,3 +89,7 @@ class Board
     return @name2 if cups[13].size > cups[6].size
   end
 end
+
+# debugger
+# board = Board.new("Erica","James")
+# board.make_move(9, "James")
