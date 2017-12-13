@@ -63,7 +63,7 @@ class Board
     if ending_cup_idx == 6 || ending_cup_idx == 13
       return :prompt
     else
-      if cups[ending_cup_idx].empty?
+      if cups[ending_cup_idx].size == 1
         return :switch
       else
         return ending_cup_idx
