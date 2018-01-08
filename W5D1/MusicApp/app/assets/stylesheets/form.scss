@@ -1,0 +1,14 @@
+.log_in_form {
+  display: flex;
+  flex-direction: column;
+  div {
+    margin: 3px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .submit_button {
+    margin: 5px;
+    align-self: flex-end;
+  }
+
+}

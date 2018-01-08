@@ -1,0 +1,43 @@
+<% if action == :create %>
+  <% action_url = albums_url %>
+  <% button_text = "Add Album" %>
+  <% method = "post" %>
+<% else %>
+  <% action_url = album_url(album) %>
+  <% button_text = "Update Album" %>
+  <% method = "patch" %>
+<% end %>
+
+<form class="album_form" action="<%= action_url  %>" method="post">
+  <input type="hidden" name="_method" value="<%= method %>">
+
+  <select class="band_drop" name="album[band_id]">
+    <% Band.all.each do |band| %>
+      <option name="" value="<%= band.id %>" <%= "selected" if band.id == album.band_id %> ><%= band.name %></option>
+    <% end %>
+  </select>
+
+
+  <div class="">
+    <label for="title">Title:</label>
+    <input id="title" type="text" name="album[title]" value="<%=album.title%>">
+  </div>
+
+  <div class="">
+    <label for="year">Year:</label>
+    <input id="year" type="text" name="album[year]" value="<%=album.year%>">
+  </div>
+
+  <div class="">
+    <% album.live == false ? checked = "checked" : checked = ""%>
+    <% album.live == true ? checked2 = "checked" : checked2 = ""%>
+    <label for="studio">Studio</label>
+    <input id="studio" type="radio" name="album[live]" value="false" <%= checked %>>
+    <label for="live">Live</label>
+    <input id="live" type="radio" name="album[live]" value="true" <%= checked2 %>>
+  </div>
+
+  <div class="submit_button">
+    <%= button_to button_text, action_url, method: "post" %>
+  </div>
+</form>

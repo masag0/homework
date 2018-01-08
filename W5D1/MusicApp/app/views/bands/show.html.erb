@@ -1,0 +1,18 @@
+<%= @band.name %>
+
+<!-- <%#= render 'albums/show' %> -->
+
+<ul>
+  <% @band.albums.each do |album| %>
+    <li>
+      <%= link_to album.title, album_url(album) %>
+    </li>
+  <% end %>
+</ul>
+
+<p>
+  <%= link_to "Add Album", new_band_album_url(@band) %>
+</p>
+<p>
+  <%= link_to "Edit Band", edit_band_url(@band.id) %>
+</p>

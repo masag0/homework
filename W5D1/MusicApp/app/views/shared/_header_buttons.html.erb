@@ -1,0 +1,11 @@
+<% if action == :sign_up %>
+  <% action_url = new_user_url %>
+  <% button_text = "Sign Up" %>
+<% else %>
+  <% action_url = new_session_url %>
+  <% button_text = "Log In" %>
+<% end %>
+
+
+<%= button_to button_text, action_url, method: 'get' %>
+<br>

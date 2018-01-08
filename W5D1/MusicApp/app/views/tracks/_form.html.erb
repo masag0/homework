@@ -1,0 +1,47 @@
+<% if action == :create %>
+  <% action_url = tracks_url %>
+  <% button_text = "Add Track" %>
+  <% method = "post" %>
+<% else %>
+  <% action_url = track_url(track) %>
+  <% button_text = "Update Track" %>
+  <% method = "patch" %>
+<% end %>
+
+<form class="track_form" action="<%= action_url  %>" method="post">
+  <input type="hidden" name="_method" value="<%= method %>">
+
+  <select class="album_drop" name="track[album_id]">
+    <% band.albums.each do |album| %>
+      <option name="" value="<%= album.id %>" <%= "selected" if album.id == track.album_id %> ><%= album.title %></option>
+    <% end %>
+  </select>
+
+
+  <div class="">
+    <label for="title">Title:</label>
+    <input id="title" type="text" name="track[title]" value="<%=track.title%>">
+  </div>
+
+  <div class="">
+    <label for="track_num">Track #:</label>
+    <input id="track_num" type="text" name="track[ord]" value="<%=track.ord%>">
+  </div>
+
+  <div class="">
+    <% track.bonus == false ? checked = "checked" : checked = ""%>
+    <% track.bonus == true ? checked2 = "checked" : checked2 = ""%>
+    <label for="regular">Regular</label>
+    <input id="regular" type="radio" name="track[bonus]" value="false" <%= checked %>>
+    <label for="bonus">Bonus</label>
+    <input id="bonus" type="radio" name="track[bonus]" value="true" <%= checked2 %>>
+  </div>
+
+  <div class="">
+    <textarea name="track[lyrics]" rows="8" cols="80"><%= track.lyrics %></textarea>
+  </div>
+
+  <div class="submit_button">
+    <%= button_to button_text, action_url, method: "post" %>
+  </div>
+</form>

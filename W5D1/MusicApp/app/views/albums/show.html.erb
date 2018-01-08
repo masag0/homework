@@ -1,0 +1,23 @@
+<ul>
+  <li><%= @album.band.name %></li>
+  <li><%= @album.title %></li>
+  <li><%= @album.year %></li>
+  <li>
+    <% if @album.live %>
+      Live
+    <% else %>
+      Studio
+    <% end %>
+  </li>
+</ul>
+
+<ol>
+  <% @album.tracks.each do |track| %>
+    <li>
+      <%= link_to track.title, track_url(track) %>
+    </li>
+  <% end %>
+</ol>
+
+<%= button_to "Add Track", new_album_track_url(@album), method: :get %>
+<%= button_to "Edit Album", edit_album_url(@album), method: :get%>

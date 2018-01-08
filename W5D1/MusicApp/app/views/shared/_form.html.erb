@@ -1,0 +1,21 @@
+<% if action == :sign_up %>
+  <% action_url = users_url %>
+  <% button_text = "Sign In" %>
+<% else %>
+  <% action_url = session_url %>
+  <% button_text = "Log In" %>
+<% end %>
+
+<form class="log_in_form" action="<%= action_url  %>" method="post">
+  <div class="">
+    <label for="email">Email:</label>
+    <input id="email" type="text" name="user[email]" value="">
+  </div>
+  <div class="">
+    <label for="password">Password:</label>
+    <input id="password" type="password" name="user[password]" value="">
+  </div>
+  <div class="submit_button">
+    <input type="submit" id="Create User" name="Create User" value="<% button_text %>">
+  </div>
+</form>
