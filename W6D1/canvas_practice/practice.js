@@ -15,4 +15,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
   ctx.fillStyle = "red";
   ctx.fill();
+
+  ctx.beginPath();
+  ctx.moveTo(75, 50);
+  ctx.lineTo(100, 75);
+  ctx.lineTo(100, 25);
+  ctx.lineTo(75, 50);
+  ctx.fillStyle = "blue";
+  ctx.fill();
+  ctx.stroke();
 });
