@@ -137,8 +137,12 @@ View.prototype.exercise4 = function () {
   //Result: Your name appears in every other square.
 
   //your code here!
+  for (let i = 0; i < $('.square').length; i++) {
+    if (i % 2 === 0) {
+      $('.square')[i].textContent = 'Eddy';
+    }
+  }
 
-  $(".square:nth-child(even)").text("Eddy");
 };
 
 View.prototype.exercise5 = function () {
