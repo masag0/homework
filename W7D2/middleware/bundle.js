@@ -2959,6 +2959,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var store = (0, _store2.default)(preloadedState);
 
   // store.dispatch = addLoggingToDispatch(store);
+  // store = applyMiddleware(store, addLoggingToDispatch);
   var root = document.getElementById('content');
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
 });
@@ -2975,18 +2976,13 @@ document.addEventListener('DOMContentLoaded', function () {
 //   };
 // };
 
-var addLoggingToDispatch = function addLoggingToDispatch(store) {
-  return function (next) {
-    return function (action) {
-      console.log("Old State: ");
-      console.log(store.getState());
-      console.log(action);
-      next(action);
-      console.log("New State: ");
-      console.log(store.getState());
-    };
-  };
-};
+// const applyMiddleware = (store, ...args) => {
+//   let dispatch = store.dispatch;
+//   args.forEach (middlware => {
+//     dispatch = middlware(store)(dispatch);
+//   });
+//   return Object.assign({}, store, { dispatch });
+// };
 
 /***/ }),
 /* 64 */
@@ -20299,11 +20295,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-  var store = (0, _redux.createStore)(_root_reducer2.default, preloadedState);
+  var store = (0, _redux.createStore)(_root_reducer2.default, preloadedState, (0, _redux.applyMiddleware)(addLoggingToDispatch));
   store.subscribe(function () {
     localStorage.state = JSON.stringify(store.getState());
   });
   return store;
+};
+
+var addLoggingToDispatch = function addLoggingToDispatch(store) {
+  return function (next) {
+    return function (action) {
+      console.log("Old State: ");
+      console.log(store.getState());
+      console.log(action);
+      next(action);
+      console.log("New State: ");
+      console.log(store.getState());
+    };
+  };
 };
 
 exports.default = configureStore;
