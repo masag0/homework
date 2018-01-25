@@ -1,7 +1,7 @@
 import React from 'react';
 
 const giphysIndexItem = (props) => {
-  console.log(props);
+  // console.log(props);
   return (
     <li>
       {props.title}
